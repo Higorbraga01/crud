@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-title>Alterar dados do Colaborador</mat-card-title>
+    <form [formGroup]="formGroup">
+        <mat-form-field>
+            <mat-label>Selecione um setor</mat-label>
+            <mat-select formControlName="setor" required>
+                <mat-option *ngFor="let setor of setores" [value]="setor">
+                    {{setor.descricao}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('setor').hasError('required')">
+                Selecione um setor
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Min 5 caracteres">
+            <input type="text" formControlName="nome" [errorStateMatcher]="matcher" matInput #input minlength="5"
+                maxlength="120" placeholder="Nome" [value]="this.colaborador.nome" required>
+            <mat-error *ngIf="formGroup.get('nome').hasError('required')">
+                Preencha um nome!
+            </mat-error>
+            <mat-hint align="end">{{input.value?.length || 0}}/120</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="cpf" matInput placeholder="Cpf" minlength="11" maxlength="14" [value]="this.colaborador.cpf | mask: '000.000.000-99' "  required>
+            <mat-error *ngIf="formGroup.get('cpf').hasError('required')">
+                CPF <strong>Obrigatório</strong>
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('cpf').hasError('minlength')">
+                CPF <strong>Inválido</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="telefone"  matInput placeholder="Celular" maxlength="14" [value]="this.colaborador.telefone | mask: '(00)00000-0000' " required
+                placeholder="Celular">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                placeholder="Ex: email@dominio.com" [(value)]="this.colaborador.email">
+            <mat-error *ngIf="formGroup.get('email').hasError('email') && !formGroup.get('email').hasError('required')">
+                Por favor insira um email válido!
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('email').hasError('required')">
+                Email é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="date" formControlName="dataNascimento" matInput placeholder="Data de Nascimento" [value]="colaborador.dataNascimento"  required>
+            <mat-error *ngIf="formGroup.get('dataNascimento').hasError('dateInvalid') ">
+                Data <strong>inválida</strong>
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('dataNascimento').hasError('required') ">
+                Preencha uma data de nascimento
+            </mat-error>
+        </mat-form-field>
+    </form>
+<button mat-raised-button (click)="update()" color="primary">
+    Salvar
+</button>
+
+<button mat-raised-button (click)="cancel()">
+   Cancelar
+</button>
+</mat-card>
