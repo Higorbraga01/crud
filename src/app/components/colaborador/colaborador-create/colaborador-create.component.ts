@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ColaboradorService } from './../colaborador.service';
 import { Colaborador } from './../colaborador.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomErrorStateMatcher } from 'src/app/validators/CustomErrorStateMatcher';
 import { DateValidator } from 'src/app/validators/DateValidator';
 
@@ -17,6 +17,8 @@ export class ColaboradorCreateComponent implements OnInit {
 
   matcher = new CustomErrorStateMatcher();
 
+  formGroup: FormGroup
+
   colaborador: Colaborador = {
     cpf: "",
     nome: "",
@@ -28,15 +30,6 @@ export class ColaboradorCreateComponent implements OnInit {
 
   setores: Setor[];
 
-  formGroup = this.formBuilder.group({
-    setor: ['', [Validators.required]],
-    nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-    telefone: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    dataNascimento: ['', [Validators.required, DateValidator.date]]
-  });
-
   constructor(
     private colaboradorService: ColaboradorService,
     private router: Router,
@@ -44,6 +37,14 @@ export class ColaboradorCreateComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      setor: ['', [Validators.required]],
+      nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      telefone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      dataNascimento: ['', [Validators.required, DateValidator.date]]
+    });
     this.formGroup.valueChanges.pipe().subscribe(colaborador => {
       this.colaborador = colaborador
       console.log(this.colaborador.dataNascimento);

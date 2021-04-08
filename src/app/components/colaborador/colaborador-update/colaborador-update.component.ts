@@ -1,7 +1,6 @@
 import { SetorService } from './../../setor/setor.service';
 import { Colaborador } from './../colaborador.model';
 import { ColaboradorService } from './../colaborador.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Setor } from '../../setor/setor.model';
@@ -47,7 +46,7 @@ export class ColaboradorUpdateComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.formGroup.get('setor').valueChanges.pipe(debounceTime(1000)).subscribe((colaborador) => {
+    this.formGroup.get('setor').valueChanges.pipe().subscribe((colaborador) => {
       this.colaborador.setor = colaborador
     });
     this.formGroup.get('nome').valueChanges.pipe(debounceTime(1000)).subscribe((colaborador) => {

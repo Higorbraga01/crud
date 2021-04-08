@@ -21,7 +21,8 @@
             <mat-hint align="end">{{input.value?.length || 0}}/120</mat-hint>
         </mat-form-field>
         <mat-form-field>
-            <input formControlName="cpf" matInput placeholder="Cpf" minlength="11" maxlength="14" [value]="this.colaborador.cpf | mask: '000.000.000-99' "  required>
+            <input formControlName="cpf" matInput placeholder="Cpf" minlength="11" maxlength="14"
+                [value]="this.colaborador.cpf | mask: '000.000.000-99' " required>
             <mat-error *ngIf="formGroup.get('cpf').hasError('required')">
                 CPF <strong>Obrigatório</strong>
             </mat-error>
@@ -30,8 +31,8 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input formControlName="telefone"  matInput placeholder="Celular" maxlength="14" [value]="this.colaborador.telefone | mask: '(00)00000-0000' " required
-                placeholder="Celular">
+            <input formControlName="telefone" matInput placeholder="Celular" maxlength="14"
+                [value]="this.colaborador.telefone | mask: '(00)00000-0000' " required placeholder="Celular">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Email</mat-label>
@@ -45,7 +46,8 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input type="date" formControlName="dataNascimento" matInput placeholder="Data de Nascimento" [value]="colaborador.dataNascimento"  required>
+            <input type="date" formControlName="dataNascimento" matInput placeholder="Data de Nascimento"
+                [value]="colaborador.dataNascimento" required>
             <mat-error *ngIf="formGroup.get('dataNascimento').hasError('dateInvalid') ">
                 Data <strong>inválida</strong>
             </mat-error>
@@ -54,11 +56,11 @@
             </mat-error>
         </mat-form-field>
     </form>
-<button mat-raised-button (click)="update()" color="primary">
-    Salvar
-</button>
+    <button mat-raised-button (click)="update()" color="primary">
+        Salvar
+    </button>
 
-<button mat-raised-button (click)="cancel()">
-   Cancelar
-</button>
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
 </mat-card>
