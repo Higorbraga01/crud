@@ -1,6 +1,7 @@
 <mat-card>
     <mat-card-title>Alterar dados do Colaborador</mat-card-title>
     <form [formGroup]="formGroup">
+        {{formGroup.value | json}}
         <mat-form-field>
             <mat-label>Selecione um setor</mat-label>
             <mat-select formControlName="setor" required>
@@ -14,7 +15,7 @@
         </mat-form-field>
         <mat-form-field hintLabel="Min 5 caracteres">
             <input type="text" formControlName="nome" [errorStateMatcher]="matcher" matInput #input minlength="5"
-                maxlength="120" placeholder="Nome" [value]="this.colaborador.nome" required>
+                maxlength="120" placeholder="Nome" required>
             <mat-error *ngIf="formGroup.get('nome').hasError('required')">
                 Preencha um nome!
             </mat-error>
@@ -37,7 +38,7 @@
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
-                placeholder="Ex: email@dominio.com" [(value)]="this.colaborador.email">
+                placeholder="Ex: email@dominio.com">
             <mat-error *ngIf="formGroup.get('email').hasError('email') && !formGroup.get('email').hasError('required')">
                 Por favor insira um email válido!
             </mat-error>
@@ -47,7 +48,7 @@
         </mat-form-field>
         <mat-form-field>
             <input type="date" formControlName="dataNascimento" matInput placeholder="Data de Nascimento"
-                [value]="colaborador.dataNascimento" required>
+                 required>
             <mat-error *ngIf="formGroup.get('dataNascimento').hasError('dateInvalid') ">
                 Data <strong>inválida</strong>
             </mat-error>

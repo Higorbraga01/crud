@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Setor } from '../../setor/setor.model';
 import { CustomErrorStateMatcher } from 'src/app/validators/CustomErrorStateMatcher';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DateValidator } from 'src/app/validators/DateValidator';
 import { debounceTime } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class ColaboradorUpdateComponent implements OnInit {
   matcher = new CustomErrorStateMatcher();
   
   colaborador: Colaborador = {
+    id: null,
     cpf: "",
     nome: "",
     telefone: "",
@@ -27,16 +28,9 @@ export class ColaboradorUpdateComponent implements OnInit {
     setor: null
   }
 
-  setores: Setor[];
+  formGroup: FormGroup
 
-  formGroup = this.formBuilder.group({
-    setor: ['', [Validators.required]],
-    nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-    telefone: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    dataNascimento: ['', [Validators.required, DateValidator.date]]
-  });
+  setores: Setor[];
 
   constructor(
     private router: Router, 
@@ -46,30 +40,21 @@ export class ColaboradorUpdateComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.formGroup.get('setor').valueChanges.pipe().subscribe((colaborador) => {
-      this.colaborador.setor = colaborador
+
+    this.formGroup = this.formBuilder.group({
+      id: [''],
+      setor: ['', [Validators.required]],
+      nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
+      telefone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      dataNascimento: ['', [Validators.required, DateValidator.date]]
     });
-    this.formGroup.get('nome').valueChanges.pipe(debounceTime(1000)).subscribe((colaborador) => {
-      this.colaborador.nome = colaborador
-    });
-    this.formGroup.get('cpf').valueChanges.pipe().subscribe((colaborador) => {
-        this.colaborador.cpf = colaborador
-      });
-    this.formGroup.get('telefone').valueChanges.pipe().subscribe((colaborador) => {
-          this.colaborador.telefone = colaborador
-    });
-    this.formGroup.get('email').valueChanges.pipe(debounceTime(1000)).subscribe((colaborador) => {
-      this.colaborador.email = colaborador
-      console.log(this.colaborador.email);
-    });
-    this.formGroup.get('dataNascimento').valueChanges.pipe(debounceTime(1000)).subscribe((colaborador) => {
-      this.colaborador.dataNascimento = colaborador
-    });
+
     const id = this.route.snapshot.paramMap.get('id');
     this.colaboradorService.readById(id).subscribe(colaborador =>{
-      this.colaborador = colaborador
-      console.log(this.colaborador);
-      
+      this.colaborador = colaborador;
+      this.setValues(this.colaborador);   
     });
     this.setorService.read().subscribe(setores => {
       this.setores = setores;
@@ -77,10 +62,22 @@ export class ColaboradorUpdateComponent implements OnInit {
   }
 
   update(): void {
-    this.colaboradorService.update(this.colaborador).subscribe(() =>{
+    this.colaboradorService.update(this.formGroup.value).subscribe(() =>{
       this.colaboradorService.showMessage('Dados atualizado com sucesso!');
       this.router.navigate(["/colaboradores"]);
     })
+  }
+
+  setValues(colaborador: Colaborador) {
+    this.formGroup.setValue({
+        'id': colaborador.id,    
+        'setor': colaborador.setor,
+        'nome':  colaborador.nome,
+        'cpf': colaborador.cpf,
+        'telefone': colaborador.telefone,
+        'email': colaborador.email,
+        'dataNascimento': colaborador.dataNascimento       
+    });
   }
 
   cancel(): void {

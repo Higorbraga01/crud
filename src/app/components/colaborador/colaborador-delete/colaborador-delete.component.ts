@@ -1,3 +1,4 @@
+import { Setor } from './../../setor/setor.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Colaborador } from '../colaborador.model';
