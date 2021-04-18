@@ -1,26 +1,25 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Colaborador } from './colaborador.model';
-import { EMPTY, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Colaborador } from "./colaborador.model";
+import { EMPTY, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ColaboradorService {
-
   API_URL = "https://backendplenohigorbraga.herokuapp.com/colaboradores";
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   showMessage(msg, isError: boolean = false): void {
-    this.snackBar.open(msg, 'X', {
+    this.snackBar.open(msg, "X", {
       duration: 3000,
       horizontalPosition: "right",
       verticalPosition: "top",
-      panelClass: isError ? ['msg-error'] : ['msg-sucess']
-    })
+      panelClass: isError ? ["msg-error"] : ["msg-sucess"],
+    });
   }
 
   create(colaborador: Colaborador): Observable<Colaborador> {
@@ -62,7 +61,7 @@ export class ColaboradorService {
   }
 
   errorHandler(e: any): Observable<any> {
-    this.showMessage('Ocorreu um erro', true);
-    return EMPTY
+    this.showMessage("Ocorreu um erro", true);
+    return EMPTY;
   }
 }

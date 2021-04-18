@@ -1,36 +1,62 @@
 <mat-card>
-    <mat-card-title>Novo Colaborador</mat-card-title>
-    <form>
-        <mat-form-field>
-            <input matInput placeholder="Setor" 
-                [(ngModel)]="colaborador.setor.descricao" name="setor" disabled="true">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Nome" 
-                [(ngModel)]="colaborador.nome" name="name" disabled="true">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Cpf" 
-                [(ngModel)]="colaborador.cpf" name="cpf" disabled="true">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Telefone" 
-                [(ngModel)]="colaborador.telefone" name="telefone" disabled="true">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Email" 
-                [(ngModel)]="colaborador.email" name="email" disabled="true">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Data de Nascimento" 
-                [(ngModel)]="colaborador.dataNascimento" name="dataNascimento" disabled="true">
-        </mat-form-field>
-    </form>
-<button mat-raised-button (click)="delete()" color="warn">
-    Excluir
-</button>
+  <mat-card-title>Novo Colaborador</mat-card-title>
+  <form>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Setor"
+        [(ngModel)]="colaborador.setor.descricao"
+        name="setor"
+        disabled="true"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Nome"
+        [(ngModel)]="colaborador.nome"
+        name="name"
+        disabled="true"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Cpf"
+        [(ngModel)]="colaborador.cpf"
+        name="cpf"
+        disabled="true"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Telefone"
+        [(ngModel)]="colaborador.telefone"
+        name="telefone"
+        disabled="true"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Email"
+        [(ngModel)]="colaborador.email"
+        name="email"
+        disabled="true"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Data de Nascimento"
+        [(ngModel)]="colaborador.dataNascimento"
+        name="dataNascimento"
+        disabled="true"
+      />
+    </mat-form-field>
+  </form>
+  <button mat-raised-button (click)="delete()" color="warn">Excluir</button>
 
-<button mat-raised-button (click)="cancel()">
-   Cancelar
-</button>
+  <button mat-raised-button (click)="cancel()">Cancelar</button>
 </mat-card>
